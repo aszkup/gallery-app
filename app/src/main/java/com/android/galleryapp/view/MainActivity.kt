@@ -1,7 +1,8 @@
-package com.android.galleryapp
+package com.android.galleryapp.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.android.galleryapp.R
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,6 @@
 package com.android.galleryapp.viewmodel
 
-class MainViewModel {
+import androidx.lifecycle.ViewModel
+
+class MainViewModel() : ViewModel() {
 }
