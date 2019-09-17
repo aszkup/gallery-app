@@ -52,6 +52,10 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-java:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
     testImplementation 'junit:junit:4.12'
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
