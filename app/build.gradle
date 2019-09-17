@@ -14,6 +14,8 @@ android {
         versionName "0.1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        buildConfigField 'String', 'BACKEND_URL', '"https://jsonplaceholder.typicode.com/"'
     }
 
     buildTypes {
