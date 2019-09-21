@@ -2,13 +2,14 @@ package com.android.galleryapp.repository
 
 import android.content.Context
 import com.android.galleryapp.BuildConfig
+import com.tickaroo.tikxml.TikXml
+import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.jaxb.JaxbConverterFactory
 import timber.log.Timber
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -26,7 +27,8 @@ val networkModule = module {
 
 private fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder().apply {
     baseUrl(BuildConfig.BACKEND_URL)
-    addConverterFactory(JaxbConverterFactory.create())
+    val tikRules = TikXml.Builder().exceptionOnUnreadXml(false).build()
+    addConverterFactory(TikXmlConverterFactory.create(tikRules))
     addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     client(okHttpClient)
 }.build()
