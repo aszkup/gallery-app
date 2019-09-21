@@ -17,13 +17,30 @@ class GalleryViewModel(
     private val _galleryItems = MutableLiveData<List<Entry>>()
     val galleryItems = _galleryItems.readOnly
 
+    private val _inProgress = MutableLiveData<Boolean>()
+    val inProgress = _inProgress.readOnly
+
+    private val _hasData = MutableLiveData<Boolean>()
+    val hasData = _hasData.readOnly
+
     init {
+        getFeed()
+    }
+
+    fun refresh() {
+        getFeed()
+    }
+
+    private fun getFeed() {
         galleryApi.getFeed()
+            .doOnSubscribe { _inProgress.postValue(true) }
+            .doAfterTerminate { _inProgress.postValue(false) }
             .subscribeOn(Schedulers.io())
             .subscribeBy(
                 onSuccess = {
                     Timber.d("Feed: $it")
                     _galleryItems.postValue(it.entries)
+                    _hasData.postValue(!it.entries.isNullOrEmpty())
                 },
                 onError = Timber::e
             ).addTo(disposables)

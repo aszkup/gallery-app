@@ -30,11 +30,13 @@ class GalleryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         GalleryFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = galleryViewModel
+            lifecycleOwner = viewLifecycleOwner
             binding = this
         }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.swipeLayout.setOnRefreshListener { galleryViewModel.refresh() }
         binding.galleryRecyclerView.apply {
             adapter = galleryAdapter
         }

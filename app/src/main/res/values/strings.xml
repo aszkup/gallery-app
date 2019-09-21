@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GalleryApp</string>
+    <string name="no_items_in_gallery">No items in gallery</string>
 </resources>
