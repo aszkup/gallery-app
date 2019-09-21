@@ -1,6 +1,5 @@
 package com.android.galleryapp.repository.gallery
 
-import com.android.galleryapp.domain.feed.Feed
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.http.GET

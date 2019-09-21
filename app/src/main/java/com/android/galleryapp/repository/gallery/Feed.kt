@@ -1,5 +1,6 @@
-package com.android.galleryapp.domain.feed
+package com.android.galleryapp.repository.gallery
 
+import com.android.galleryapp.domain.gallery.GalleryItem
 import com.tickaroo.tikxml.annotation.Attribute
 import com.tickaroo.tikxml.annotation.Element
 import com.tickaroo.tikxml.annotation.PropertyElement
@@ -17,7 +18,7 @@ data class Feed(
 data class Entry(
     @PropertyElement val title: String? = null,
     @Element val link: Link? = null,
-    @PropertyElement val id: String? = null,
+    @PropertyElement val id: String,
     @Element val author: Author? = null,
     @PropertyElement val published: String? = null,
     @PropertyElement val updated: String? = null,
@@ -37,3 +38,7 @@ data class Author(
 data class Link(
     @Attribute(name = "href") val url: String? = null
 )
+
+fun Entry.toGalleryItem() = GalleryItem(id, title, published, dateTakenFl, link?.url, author?.toAuthor())
+
+fun Author.toAuthor() = com.android.galleryapp.domain.gallery.Author(id, name, uri)
