@@ -32,7 +32,7 @@ data class Author(
     @PropertyElement(name = "flickr:nsid") val id: String? = null,
     @PropertyElement val name: String? = null,
     @PropertyElement val uri: String? = null,
-    @PropertyElement(name = "flickr:buddyico") val buddyIcon: String? = null
+    @PropertyElement(name = "flickr:buddyicon") val buddyIcon: String? = null
 )
 
 @Xml
@@ -49,4 +49,4 @@ fun Entry.toGalleryItem() = GalleryItem(
     author?.toAuthor()
 )
 
-fun Author.toAuthor() = com.android.galleryapp.domain.gallery.Author(id, name, uri)
+fun Author.toAuthor() = com.android.galleryapp.domain.gallery.Author(id, name, buddyIcon)
