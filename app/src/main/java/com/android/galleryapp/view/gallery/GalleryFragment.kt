@@ -2,8 +2,10 @@ package com.android.galleryapp.view.gallery
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.android.galleryapp.databinding.GalleryFragmentBinding
 import com.android.galleryapp.viewmodel.gallery.GalleryViewModel
 import com.android.galleryapp.viewmodel.gallery.galleryModule
@@ -18,6 +20,7 @@ class GalleryFragment : Fragment() {
 
     private val galleryViewModel: GalleryViewModel by sharedViewModel()
     private lateinit var binding: GalleryFragmentBinding
+    private val galleryAdapter = GalleryAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,4 +32,14 @@ class GalleryFragment : Fragment() {
             viewModel = galleryViewModel
             binding = this
         }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.galleryRecyclerView.apply {
+            adapter = galleryAdapter
+        }
+        galleryViewModel.galleryItems.observe(viewLifecycleOwner, Observer {
+            galleryAdapter.setItems(it)
+        })
+    }
 }
