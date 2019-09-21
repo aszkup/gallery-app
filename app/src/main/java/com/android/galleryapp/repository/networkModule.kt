@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.jaxb.JaxbConverterFactory
 import timber.log.Timber
 import java.io.File
@@ -26,6 +27,7 @@ val networkModule = module {
 private fun provideRetrofit(okHttpClient: OkHttpClient) = Retrofit.Builder().apply {
     baseUrl(BuildConfig.BACKEND_URL)
     addConverterFactory(JaxbConverterFactory.create())
+    addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     client(okHttpClient)
 }.build()
 
