@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">GalleryApp</string>
+
     <string name="no_items_in_gallery">No items in gallery</string>
+    <string name="published_by">Published by:</string>
+    <string name="published_at">Published at:</string>
+    <string name="taken_at">Taken at:</string>
 </resources>

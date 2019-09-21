@@ -2,13 +2,14 @@ package com.android.galleryapp.domain.gallery
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import org.threeten.bp.OffsetDateTime
 
 @Parcelize
 data class GalleryItem(
     val id: String,
     val title: String? = null,
-    val published: String? = null,
-    val taken: String? = null,
+    val published: OffsetDateTime? = null,
+    val taken: OffsetDateTime? = null,
     val link: String? = null,
     val author: Author? = null
 ) : Parcelable
