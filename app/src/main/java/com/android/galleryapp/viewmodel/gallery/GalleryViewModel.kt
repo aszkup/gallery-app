@@ -16,28 +16,42 @@ class GalleryViewModel(
     private val _galleryItems = MutableLiveData<List<GalleryItem>>()
     val galleryItems = _galleryItems.readOnly
 
-    private val _inProgress = MutableLiveData<Boolean>()
-    val inProgress = _inProgress.readOnly
+    private val _isRefreshing = MutableLiveData<Boolean>()
+    val isRefreshing = _isRefreshing.readOnly
 
     private val _hasData = MutableLiveData<Boolean>()
     val hasData = _hasData.readOnly
 
+    private val _isLoadingMore = MutableLiveData<Boolean>()
+    val isLoadingMore = _isLoadingMore.readOnly
+
     init {
-        getFeed()
+        // load first page
+        refresh()
     }
 
     fun refresh() {
-        getFeed()
+        _isRefreshing.postValue(true)
+        getFeed { _galleryItems.postValue(it) }
     }
 
-    private fun getFeed() {
+    fun loadMore() {
+        _isLoadingMore.postValue(true)
+        getFeed {
+            val items = _galleryItems.value!!.toMutableList()
+            items.addAll(it)
+            _galleryItems.postValue(items)
+        }
+    }
+
+    private fun getFeed(onSuccess: ((List<GalleryItem>) -> Unit)) {
         getFeedUseCase()
-            .doOnSubscribe { _inProgress.postValue(true) }
-            .doAfterTerminate { _inProgress.postValue(false) }
+            .doAfterTerminate { _isRefreshing.postValue(false) }
+            .doAfterTerminate { _isLoadingMore.postValue(false) }
             .subscribeBy(
                 onSuccess = {
                     Timber.d("Feed: $it")
-                    _galleryItems.postValue(it)
+                    onSuccess(it)
                     _hasData.postValue(!it.isNullOrEmpty())
                 },
                 onError = Timber::e
