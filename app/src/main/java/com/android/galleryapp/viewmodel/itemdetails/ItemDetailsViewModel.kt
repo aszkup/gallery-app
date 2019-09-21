@@ -2,11 +2,10 @@ package com.android.galleryapp.viewmodel.itemdetails
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.galleryapp.platform.extension.readOnly
+import com.android.galleryapp.domain.gallery.GalleryItem
 
 class ItemDetailsViewModel() : ViewModel() {
 
-    val _itemDetails = MutableLiveData<String>()
-    val title = _itemDetails.readOnly
+    val item = MutableLiveData<GalleryItem>()
 
 }

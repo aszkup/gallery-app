@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.android.galleryapp.databinding.GalleryFragmentBinding
 import com.android.galleryapp.view.itemdetails.ItemDetailsActivity
+import com.android.galleryapp.view.itemdetails.ItemDetailsActivity.Companion.GALLERY_ITEM
 import com.android.galleryapp.viewmodel.gallery.GalleryViewModel
 import com.android.galleryapp.viewmodel.gallery.galleryModule
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -47,7 +48,7 @@ class GalleryFragment : Fragment() {
         })
         galleryAdapter.onItemClick = {
             val intent = Intent(requireActivity(), ItemDetailsActivity::class.java)
-            intent.putExtra("id", it.id)
+            intent.putExtra(GALLERY_ITEM, it)
             startActivity(intent)
         }
     }

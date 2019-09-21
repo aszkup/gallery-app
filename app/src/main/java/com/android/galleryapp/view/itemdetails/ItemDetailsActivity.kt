@@ -29,7 +29,11 @@ class ItemDetailsActivity : AppCompatActivity() {
             binding = this
         }
 
-        itemDetailsViewModel._itemDetails.postValue(intent.extras!!.getString("id"))
+        itemDetailsViewModel.item.postValue(intent.extras!!.getParcelable(GALLERY_ITEM))
         showFragment(ItemDetailsFragment(), R.id.fragment)
+    }
+
+    companion object {
+        const val GALLERY_ITEM = "gallery_item"
     }
 }

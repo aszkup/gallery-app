@@ -28,8 +28,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                bind:src="@{viewModel.item.link}"
                 tools:src="@tools:sample/backgrounds/scenic" />
-            <!--            bind:src="@{viewModel.item.link}"-->
 
             <TextView
                 android:id="@+id/title"
@@ -38,12 +38,12 @@
                 android:paddingStart="8dp"
                 android:paddingTop="4dp"
                 android:paddingEnd="8dp"
-                android:text="@{viewModel.title}"
+                android:text="@{viewModel.item.title}"
                 android:textColor="@android:color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/image"
-                bind:isVisible="@{!viewModel.title.isEmpty()}"
+                bind:isVisible="@{!viewModel.item.title.isEmpty()}"
                 tools:text="@tools:sample/lorem/random" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
