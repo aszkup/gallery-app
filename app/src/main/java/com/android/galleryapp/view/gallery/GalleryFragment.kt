@@ -15,9 +15,8 @@ import com.android.galleryapp.viewmodel.gallery.galleryModule
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.context.loadKoinModules
 
-private fun injectFeatures() {
-    loadKoinModules(galleryModule)
-}
+private val loadFeatures by lazy { loadKoinModules(galleryModule) }
+private fun injectFeatures() = loadFeatures
 
 class GalleryFragment : Fragment() {
 
@@ -27,7 +26,7 @@ class GalleryFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        injectFeatures() // TODO move to base fragment in case of more fragments
+        injectFeatures()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =

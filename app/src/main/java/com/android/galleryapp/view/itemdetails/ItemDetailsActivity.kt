@@ -11,9 +11,8 @@ import com.android.galleryapp.viewmodel.itemdetails.detailsModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
-private fun injectFeatures() {
-    loadKoinModules(detailsModule)
-}
+private val loadFeatures by lazy { loadKoinModules(detailsModule) }
+private fun injectFeatures() = loadFeatures
 
 class ItemDetailsActivity : AppCompatActivity() {
 
