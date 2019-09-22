@@ -17,7 +17,7 @@
             android:id="@+id/search_by_tags"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/chuck_ic_search_white_24dp"
+            android:drawableStart="@drawable/ic_search_black_24dp"
             android:hint="@string/type_to_search_by_tags"
             android:maxLines="1"
             android:text="@={galleryVM.tagsQuery}"
