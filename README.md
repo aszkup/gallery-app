@@ -1,5 +1,5 @@
 # Flickr Gallery Application
-Simple application to view the public content published on Flick.com.
+Simple application to view the public content published on Flickr.com.
 
 
 ## Demo
