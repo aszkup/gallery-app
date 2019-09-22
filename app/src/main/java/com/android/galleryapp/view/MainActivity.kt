@@ -9,11 +9,10 @@ import com.android.galleryapp.R
 import com.android.galleryapp.databinding.ActivityMainBinding
 import com.android.galleryapp.viewmodel.gallery.GalleryViewModel
 import com.android.galleryapp.viewmodel.gallery.galleryModule
-import com.android.galleryapp.viewmodel.tags.tagsModule
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
-private val loadFeatures by lazy { loadKoinModules(listOf(galleryModule, tagsModule)) }
+private val loadFeatures by lazy { loadKoinModules(listOf(galleryModule)) }
 private fun injectFeatures() = loadFeatures
 
 class MainActivity : AppCompatActivity() {
