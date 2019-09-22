@@ -2,6 +2,7 @@ package com.android.galleryapp.view
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.android.galleryapp.R
 
@@ -15,5 +16,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.date_sort_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_publish_date_sort -> {
+                true
+            }
+            R.id.menu_taken_date_sort -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
