@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer
 import com.android.galleryapp.R
 import com.android.galleryapp.domain.feed.GetFeedUseCase
 import com.android.galleryapp.domain.gallery.GalleryItem
+import com.android.galleryapp.platform.LiveEvent
 import com.android.galleryapp.platform.StringProvider
 import com.android.galleryapp.platform.extension.debounce
 import com.android.galleryapp.platform.extension.readOnly
@@ -17,6 +18,9 @@ class GalleryViewModel(
     private val getFeedUseCase: GetFeedUseCase,
     private val stringProvider: StringProvider
 ) : BaseViewModel() {
+
+    private val _networkError = LiveEvent<String>()
+    val networkError = _networkError.readOnly
 
     private val _galleryItems = MutableLiveData<List<GalleryItem>>()
     val galleryItems = _galleryItems.readOnly
@@ -97,7 +101,10 @@ class GalleryViewModel(
                     onSuccess(it)
                     _hasData.postValue(!it.isNullOrEmpty())
                 },
-                onError = Timber::e
+                onError = { error ->
+                    Timber.d(error)
+                    _networkError.postValue(error.message)
+                }
             ).addTo(disposables)
     }
 

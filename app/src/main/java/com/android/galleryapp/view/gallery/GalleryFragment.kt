@@ -5,17 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.galleryapp.R
 import com.android.galleryapp.databinding.GalleryFragmentBinding
 import com.android.galleryapp.domain.gallery.GalleryItem
 import com.android.galleryapp.view.itemdetails.ItemDetailsActivity
 import com.android.galleryapp.view.itemdetails.ItemDetailsActivity.Companion.GALLERY_ITEM
 import com.android.galleryapp.viewmodel.gallery.GalleryViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-
 
 class GalleryFragment : Fragment() {
 
@@ -38,9 +39,8 @@ class GalleryFragment : Fragment() {
             adapter = galleryAdapter
             addOnScrollListener(getOnScrollListener())
         }
-        galleryViewModel.galleryItems.observe(viewLifecycleOwner, Observer {
-            galleryAdapter.setItems(it)
-        })
+        galleryViewModel.galleryItems.observe(viewLifecycleOwner, Observer { galleryAdapter.setItems(it) })
+        galleryViewModel.networkError.observe(viewLifecycleOwner, Observer { showErrorDialog(it) })
         galleryAdapter.onItemClick = { showDetails(it) }
     }
 
@@ -54,6 +54,15 @@ class GalleryFragment : Fragment() {
         val intent = Intent(requireActivity(), ItemDetailsActivity::class.java)
         intent.putExtra(GALLERY_ITEM, galleryItem)
         startActivity(intent)
+    }
+
+    private fun showErrorDialog(error: String?) {
+        val message = "${getString(R.string.details)}\n$error\n\n${getString(R.string.check_connection)}"
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(getString(R.string.network_issue_occurred))
+            setMessage(message)
+            setPositiveButton(getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
+        }.show()
     }
 
     private fun getOnScrollListener() = object : RecyclerView.OnScrollListener() {

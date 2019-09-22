@@ -9,4 +9,8 @@
     <string name="sort_by_publish_date">Sort by Publish Date</string>
     <string name="sort_by_taken_date">Sort by Taken Date</string>
     <string name="type_to_search_by_tags">Type to search by tags</string>
+    <string name="network_issue_occurred">Network issue occurred</string>
+    <string name="ok">OK</string>
+    <string name="details">Details:</string>
+    <string name="check_connection">Check your internet connection</string>
 </resources>
