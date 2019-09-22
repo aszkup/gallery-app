@@ -86,6 +86,10 @@ dependencies {
     debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "androidx.test.ext:junit-ktx:1.1.1"
+    testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation "io.mockk:mockk:1.9.2.kotlin12"
+    testImplementation "io.mockk:mockk-android:1.9.2.kotlin12"
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
