@@ -14,23 +14,14 @@ import com.android.galleryapp.domain.gallery.GalleryItem
 import com.android.galleryapp.view.itemdetails.ItemDetailsActivity
 import com.android.galleryapp.view.itemdetails.ItemDetailsActivity.Companion.GALLERY_ITEM
 import com.android.galleryapp.viewmodel.gallery.GalleryViewModel
-import com.android.galleryapp.viewmodel.gallery.galleryModule
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.core.context.loadKoinModules
 
-private val loadFeatures by lazy { loadKoinModules(galleryModule) }
-private fun injectFeatures() = loadFeatures
 
 class GalleryFragment : Fragment() {
 
     private val galleryViewModel: GalleryViewModel by sharedViewModel()
     private lateinit var binding: GalleryFragmentBinding
     private val galleryAdapter = GalleryAdapter()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        injectFeatures()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
         GalleryFragmentBinding.inflate(inflater, container, false).apply {

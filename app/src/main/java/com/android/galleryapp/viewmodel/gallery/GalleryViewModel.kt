@@ -25,6 +25,8 @@ class GalleryViewModel(
     private val _isLoadingMore = MutableLiveData<Boolean>()
     val isLoadingMore = _isLoadingMore.readOnly
 
+    private var sortByPublishDate = true
+
     init {
         // load first page
         refresh()
@@ -32,7 +34,10 @@ class GalleryViewModel(
 
     fun refresh() {
         _isRefreshing.postValue(true)
-        getFeed { _galleryItems.postValue(it) }
+        getFeed {
+            val sortedItems = sortItems(it)
+            _galleryItems.postValue(sortedItems)
+        }
     }
 
     fun loadMore() {
@@ -40,8 +45,28 @@ class GalleryViewModel(
         getFeed {
             val items = _galleryItems.value!!.toMutableList()
             items.addAll(it)
-            _galleryItems.postValue(items)
+            val sortedItems = sortItems(items.distinct())
+            _galleryItems.postValue(sortedItems)
         }
+    }
+
+    fun sortByPublishDate() {
+        if (!sortByPublishDate) {
+            sortByPublishDate = true
+            updateItems()
+        }
+    }
+
+    fun sortByTakenDate() {
+        if (sortByPublishDate) {
+            sortByPublishDate = false
+            updateItems()
+        }
+    }
+
+    private fun updateItems() {
+        val sortedItems = sortItems(_galleryItems.value!!)
+        _galleryItems.postValue(sortedItems)
     }
 
     private fun getFeed(onSuccess: ((List<GalleryItem>) -> Unit)) {
@@ -56,5 +81,13 @@ class GalleryViewModel(
                 },
                 onError = Timber::e
             ).addTo(disposables)
+    }
+
+    private fun sortItems(items: List<GalleryItem>): List<GalleryItem> {
+        return if (sortByPublishDate) {
+            items.sortedBy { it.published }
+        } else {
+            items.sortedBy { it.taken }
+        }
     }
 }
