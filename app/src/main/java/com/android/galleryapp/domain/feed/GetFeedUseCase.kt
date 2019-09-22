@@ -10,10 +10,10 @@ class GetFeedUseCase(
     private val galleryApi: GalleryApi
 ) {
 
-    operator fun invoke(): Single<List<GalleryItem>> {
-        return galleryApi.getFeed()
+    operator fun invoke(tags: List<String>): Single<List<GalleryItem>> {
+        return galleryApi.getFeed(tags.joinToString(separator = ","))
             .subscribeOn(Schedulers.io())
-            .map { it.entries }
+            .map { it.entries ?: listOf() }
             .map { it.map { it.toGalleryItem() } }
     }
 }

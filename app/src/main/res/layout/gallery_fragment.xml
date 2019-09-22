@@ -30,17 +30,34 @@
                 tools:listitem="@layout/gallery_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
+
         <TextView
             android:id="@+id/no_elements_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no_items_in_gallery"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             bind:isVisible="@{!viewModel.hasData}" />
+
+        <TextView
+            android:id="@+id/no_tags_elements_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.noResultsForTagsText}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/no_elements_text"
+            bind:isVisible="@{!viewModel.hasData &amp; !viewModel.tags.isEmpty()}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -2,9 +2,11 @@
     <string name="app_name">GalleryApp</string>
 
     <string name="no_items_in_gallery">No items in gallery</string>
+    <string name="no_items_for_tags">for tags: %s</string>
     <string name="published_by">Published by:</string>
     <string name="published_at">Published at:</string>
     <string name="taken_at">Taken at:</string>
     <string name="sort_by_publish_date">Sort by Publish Date</string>
     <string name="sort_by_taken_date">Sort by Taken Date</string>
+    <string name="type_to_search_by_tags">Type to search by tags</string>
 </resources>

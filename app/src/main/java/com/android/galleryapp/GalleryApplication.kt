@@ -2,6 +2,7 @@ package com.android.galleryapp
 
 import android.app.Application
 import android.content.Context
+import com.android.galleryapp.platform.platformModule
 import com.android.galleryapp.repository.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -33,4 +34,4 @@ class GalleryApplication : Application() {
     }
 }
 
-val appModules = mutableListOf<Module>(networkModule)
+val appModules = mutableListOf<Module>(networkModule, platformModule)

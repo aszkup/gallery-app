@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 val galleryModule = module {
 
-    viewModel { GalleryViewModel(getFeedUseCase = get()) }
+    viewModel { GalleryViewModel(getFeedUseCase = get(), stringProvider = get()) }
 
     single { getGalleryApi(retrofit = get()) }
     factory { GetFeedUseCase(galleryApi = get()) }

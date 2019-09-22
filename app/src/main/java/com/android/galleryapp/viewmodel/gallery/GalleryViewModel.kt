@@ -1,8 +1,12 @@
 package com.android.galleryapp.viewmodel.gallery
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import com.android.galleryapp.R
 import com.android.galleryapp.domain.feed.GetFeedUseCase
 import com.android.galleryapp.domain.gallery.GalleryItem
+import com.android.galleryapp.platform.StringProvider
+import com.android.galleryapp.platform.extension.debounce
 import com.android.galleryapp.platform.extension.readOnly
 import com.android.galleryapp.viewmodel.BaseViewModel
 import io.reactivex.rxkotlin.addTo
@@ -10,7 +14,8 @@ import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 
 class GalleryViewModel(
-    private val getFeedUseCase: GetFeedUseCase
+    private val getFeedUseCase: GetFeedUseCase,
+    private val stringProvider: StringProvider
 ) : BaseViewModel() {
 
     private val _galleryItems = MutableLiveData<List<GalleryItem>>()
@@ -27,9 +32,22 @@ class GalleryViewModel(
 
     private var sortByPublishDate = true
 
+    private val tagsObserver = Observer<String> { onTagsChanged(it) }
+    val tagsQuery = MutableLiveData<String>("")
+    var tags = listOf<String>()
+
+    private val _noResultsForTagsText = MutableLiveData<String>("")
+    val noResultsForTagsText = _noResultsForTagsText.readOnly
+
     init {
         // load first page
         refresh()
+        tagsQuery.debounce().observeForever(tagsObserver)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        tagsQuery.removeObserver(tagsObserver)
     }
 
     fun refresh() {
@@ -70,7 +88,7 @@ class GalleryViewModel(
     }
 
     private fun getFeed(onSuccess: ((List<GalleryItem>) -> Unit)) {
-        getFeedUseCase()
+        getFeedUseCase(tags)
             .doAfterTerminate { _isRefreshing.postValue(false) }
             .doAfterTerminate { _isLoadingMore.postValue(false) }
             .subscribeBy(
@@ -88,6 +106,16 @@ class GalleryViewModel(
             items.sortedBy { it.published }
         } else {
             items.sortedBy { it.taken }
+        }
+    }
+
+    private fun onTagsChanged(tagsQuery: String) {
+        val tags = tagsQuery.split(" ").filter { it.length > 1 }
+        if (this.tags != tags) {
+            this.tags = tags
+            refresh()
+            val noItems = stringProvider.getString(R.string.no_items_for_tags, tags.joinToString(separator = ", "))
+            _noResultsForTagsText.postValue(noItems)
         }
     }
 }
