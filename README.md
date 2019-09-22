@@ -3,9 +3,9 @@ Simple application to view the public content published on Flick.com.
 
 
 ## Demo
-|<img src="./screens/Screenshot_1.png" width="260"><img src="./screens/Screenshot_2.png" width="260"><img src="./screens/Screenshot_3.png" width="260">
-|<img src="./screens/Screenshot_4.png" width="260"><img src="./screens/Screenshot_5.png" width="260"><img src="./screens/Screenshot_6.png" width="260">
-|<img src="./screens/Screenshot_7.png" width="260">
+<img src="./screens/Screenshot_1.png" width="260"> <img src="./screens/Screenshot_2.png" width="260"> <img src="./screens/Screenshot_3.png" width="260">
+<img src="./screens/Screenshot_4.png" width="260"> <img src="./screens/Screenshot_5.png" width="260"> <img src="./screens/Screenshot_6.png" width="260">
+<img src="./screens/Screenshot_7.png" width="260">
 
 ### Google components used in project
 * [ViewModel][10]
