@@ -5,4 +5,6 @@
     <string name="published_by">Published by:</string>
     <string name="published_at">Published at:</string>
     <string name="taken_at">Taken at:</string>
+    <string name="sort_by_publish_date">Sort by Publish Date</string>
+    <string name="sort_by_taken_date">Sort by Taken Date</string>
 </resources>
